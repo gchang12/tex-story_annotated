@@ -1,0 +1,16 @@
+\usepackage[paperwidth=6.125in,paperheight=9.25in,margin=0.5in]{geometry}
+\usepackage{indentfirst}
+\usepackage[numbered]{bookmark}
+
+\renewcommand{\chaptername}{Scene}
+\renewcommand{\appendixname}{}
+
+\usepackage{hyperref}
+
+\newcommand\pingPong[3]{%
+    \hyperref[#1]{#3}%
+    \phantomsection%
+    \label{#2}%
+}
+
+\pagestyle{plain}

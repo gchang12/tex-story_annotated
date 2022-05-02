@@ -1,0 +1,25 @@
+\documentclass[oneside,12pt]{book}
+
+\usepackage{preview}
+
+\newcommand\loadMacro[1]{\input{./tex/#1}}
+
+\loadMacro{annotater}
+\loadMacro{other-reader}
+% Every .tex file here is independent of each other unless stated o.w.
+\loadMacro{hliner}
+\loadMacro{printer}
+% reader.tex uses definitions from the above two files
+\loadMacro{reader}
+\loadMacro{title}
+
+\begin{document}
+
+% Make title page
+\createThisTitle
+% Typeset scenes into chapters
+\readThisStory
+% Typeset epilogue
+\insertThisEpilogue
+
+\end{document}

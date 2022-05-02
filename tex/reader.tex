@@ -1,0 +1,42 @@
+\newread\sceneReader
+\newread\titleReader
+\newcount\sceneCount
+
+\sceneCount=0
+
+\def\readScene{
+    \ifx\filenameTitle\empty
+        % Print annotations before every chapter except the first
+        {\ifnum\chapterNo>0
+            \appendAnnotation
+        \fi}
+        \advance\chapterNo by 1
+        \noteIndex=1
+        % Print chapter title here
+        \read\titleReader to \chapterTitle
+        \chapter{\chapterTitle}
+        \sceneCount=0
+    \else
+        \advance\sceneCount by 1
+        {\ifnum\sceneCount>1
+            \markScene
+        \fi}
+        \chapterBody\filenameTitle
+    \fi
+}
+
+\def\readThisStory{
+    \openin\sceneReader=format/ordering.txt
+    \openin\titleReader=format/titles.txt
+
+    \loop
+    \catcode`\^^M=9
+    \read\sceneReader to \filenameTitle
+    \catcode`\^^M=5
+    \unless\ifeof\sceneReader
+    \readScene
+    \repeat
+
+    \closein\sceneReader
+    \closein\titleReader
+}

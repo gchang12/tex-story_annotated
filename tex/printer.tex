@@ -1,0 +1,16 @@
+% Converted from macros created with \LaTeX\ \renewcommand macro
+
+\def\chapterBody#1{\input{scenes/#1}}
+\def\insertEpilogue#1{
+    \appendix
+    \renewcommand\thechapter{Epilogue}
+    \renewcommand\chaptername{}
+    \chapter{}\chapterBody{#1}
+}
+\def\insertThisEpilogue{%
+    \appendAnnotation
+    \advance\chapterNo by 1
+    \noteIndex=1
+    \insertEpilogue{\epilogueName}
+    \appendAnnotation
+}

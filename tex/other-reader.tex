@@ -1,0 +1,8 @@
+\newread\readOther
+\openin\readOther=format/other.txt
+%\catcode`\^^M=9
+\read\readOther to \epilogueName
+\read\readOther to \storyName
+\read\readOther to \authorName
+%\catcode`\^^M=5
+\closein\readOther

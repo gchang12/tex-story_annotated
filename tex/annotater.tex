@@ -1,0 +1,61 @@
+% Define counters for chapter number and annotation index
+\newcount\chapterNo
+\newcount\noteIndex
+
+\chapterNo=0
+
+% Define reader register for annotation lines
+\newread\noteReader
+
+\def\printIndex#1{#1:\the\chapterNo-\the\noteIndex}
+
+% Define macro that will ping-pong reference to the annotation sheet
+\def\markAnnotation#1{%
+    \pingPong{\printIndex{note}}{\printIndex{prose}}{#1}%
+    \advance\noteIndex by 1
+}
+
+\newbox\noteBox
+
+\newdimen\noteSkip
+\noteSkip=5pt
+
+\newdimen\noteOneWd
+\begingroup
+\setbox\noteBox=\hbox{${}^1$}
+\global\noteOneWd=\wd\noteBox
+\endgroup
+
+\def\shiftSkip#1{\relax
+    \advance#1 by \noteOneWd\relax
+    \advance#1 by -\wd\noteBox\relax
+}
+
+\def\printAnnotation#1{
+    \begingroup
+    \setbox\noteBox=\hbox{${}^{\the\noteIndex}$}
+    \hangindent=\wd\noteBox
+    \hangafter 1
+    \parindent=0pt
+    \shiftSkip\parindent
+    \advance\hangindent by \noteSkip
+    \shiftSkip\hangindent
+    \pingPong{\printIndex{prose}}{\printIndex{note}}{\unhbox\noteBox}%
+    \hskip\noteSkip{}%
+    #1
+    \endgraf
+    \endgroup
+    \advance\noteIndex by 1
+}
+
+\def\appendAnnotation{
+    \newpage % LaTeX macro
+    \noteIndex=1
+    \openin\noteReader=annotations/chapter\the\chapterNo.txt
+    \loop
+    \read\noteReader to \myNote
+    \unless\ifeof\noteReader
+    \printAnnotation\myNote
+    \repeat
+    \closein\noteReader
+}
