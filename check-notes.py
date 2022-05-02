@@ -2,7 +2,7 @@ from os.path import sep
 
 otherfile=sep.join(['format','other.txt'])
 with open(otherfile) as rfile:
-    epname=rfile.readline().strip()
+    epname=rfile.readline().strip()+'.tex'
 
 class AnnotationChecker:
     """ Checks if the number of annotation markings in the prose match the number of lines in the input files for the annotation sheets."""
