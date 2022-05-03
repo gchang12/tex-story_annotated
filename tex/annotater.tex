@@ -50,8 +50,8 @@
 
 \def\appendAnnotation{
     \newpage % LaTeX macro
-    \section*{Annotations}
-    \addcontentsline{toc}{section}{Annotations}
+    \section*{\the\chapterNo\ Annotations} % LaTeX macro
+    \addcontentsline{toc}{section}{\the\chapterNo\ Annotations} % LaTeX macro
     \noteIndex=1
     \openin\noteReader=annotations/chapter\the\chapterNo.txt
     \vskip6pt
