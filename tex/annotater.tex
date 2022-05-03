@@ -48,16 +48,12 @@
     \advance\noteIndex by 1
 }
 
-\newcount\notePage
-
 \def\appendAnnotation{
     \newpage % LaTeX macro
-    \notePage=\count0
-    \advance\notePage by 1
-    \bookmark[rellevel=1,page=\notePage]{Annotations} % bookmark
+    \section*{Annotations}
+    \addcontentsline{toc}{section}{Annotations}
     \noteIndex=1
     \openin\noteReader=annotations/chapter\the\chapterNo.txt
-    {\centering\large\bf Annotations\par}
     \vskip6pt
     \loop
     \read\noteReader to \myNote
