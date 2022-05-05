@@ -45,7 +45,7 @@
     #1
     \endgraf
     \endgroup
-    \advance\noteIndex by 1
+    \global\advance\noteIndex by 1
 }
 
 \def\beginAnnotations{
@@ -57,11 +57,16 @@
 \def\appendAnnotation{
     \noteIndex=1
     \openin\noteReader=annotations/chapter\the\chapterNo.txt
+    \read\noteReader to \myNote
+    \unless\ifeof\noteReader{
     \beginAnnotations
+    \printAnnotation\myNote
     \loop
     \read\noteReader to \myNote
     \unless\ifeof\noteReader
     \printAnnotation\myNote
     \repeat
     \closein\noteReader
+    }
+    \fi
 }
