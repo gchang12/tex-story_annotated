@@ -1,4 +1,11 @@
-\def\sceneSymbol{$\bullet$\ \ }
+% The symbol used to separate scenes in a given chapter
+\def\sceneSymbol{$\spadesuit$\ \ }
+
+% Three of them are to be used for each scene
 \def\printThrice#1{#1#1#1}
-\def\printDelimiter{\printThrice\sceneSymbol\hfill}
-\def\markScene{\par\medskip\hfill\printDelimiter\medskip\par}
+
+% Making sure that the delimiter is in the center of the page
+\def\printDelimiter{\hfill\printThrice\sceneSymbol\hfill}
+
+% Make new paragraph, move down a bit, delimit, repeat in reverse etc.
+\def\markScene{\par\medskip\printDelimiter\medskip\par}
