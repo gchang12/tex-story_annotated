@@ -1,9 +1,13 @@
 import re
 from os import walk, sep
 
-folder='annotations-copy'
+folder='annotations'
 
 def add_bf(line):
+    # If line already has \bf applied, skip
+    if re.match(r'{\\bf ',line) is not None:
+        # If there is a match, then \bf is applied
+        return line
     line=line.split(' ')
     line[0]='{\\bf '+line[0]+'}'
     line=' '.join(line)
@@ -21,7 +25,9 @@ def fix_quotes(file):
             wfile.write(c)
 
 def remove_bf(line):
-    if line[:4] != '{\\bf':
+    # If line already has \bf applied, skip
+    if re.match(r'{\\bf ',line) is None:
+        # If there is a match, then \bf is applied
         return line
     line=line.split(' ')
     line[1]=line[1].replace('}','')
@@ -38,15 +44,11 @@ def unfix_quotes(file):
             c=c.replace('``','"')
             wfile.write(c)
 
-def fix_file(to_raw=False):
-    if to_raw:
-        action=unfix_quotes
-    else:
-        action=fix_quotes
+def fix_files(action):
     for x,y,filelist in walk(folder):
         while filelist:
             file=filelist.pop(0)
             file=sep.join([x,file])
             action(file)
 
-fix_file(True)
+fix_files(fix_quotes)
