@@ -5,7 +5,7 @@
 #include <dirent.h> // Essential bit for this function
 #include <stdlib.h>
 
-#define SRCDIR "./annotations-tex/"
+#define SRCDIR "./annotations/"
 
 void unboldifyFile(char *filename){
     FILE *fp;
@@ -43,13 +43,11 @@ void unboldifyFile(char *filename){
     }
     fclose(fp);
 
-    if (lineno>0){
-        fp=fopen(filename,"w");
-        for (int i=0; i<lineno; i++){
-            fputs(my_lines[i],fp);
-        }
-        fclose(fp);
+    fp=fopen(filename,"w");
+    for (int i=0; i<lineno; i++){
+        fputs(my_lines[i],fp);
     }
+    fclose(fp);
 }
 
 int main(int argc, char **argv){

@@ -5,7 +5,7 @@
 #include <dirent.h> // Essential bit for this function
 #include <stdlib.h> // For allocation functions
 
-#define SRCDIR "./annotations-tex/"
+#define SRCDIR "./annotations/"
 
 void boldifyFile(char *filename){
     FILE *fp;
@@ -43,12 +43,10 @@ void boldifyFile(char *filename){
     }
     fclose(fp);
 
-    if (lineno>0){
-        fp=fopen(filename,"w");
-        for (int i=0; i<lineno; i++){
-            fputs(my_lines[i],fp);
-        }
-        fclose(fp);
+    fp=fopen(filename,"w");
+    for (int i=0; i<lineno; i++){
+        fputs(my_lines[i],fp);
+    fclose(fp);
     }
 }
 
