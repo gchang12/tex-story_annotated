@@ -19,7 +19,7 @@ void unboldifyFile(char *filename){
     
     fp=fopen(filename,"r");
     while ( (fgets(line,sizeof(line),fp)) != NULL ){
-// "{\bf ...:} rest\n
+// "{\bf ...:} the rest\n
         if (line[0] != '{') {
             strcpy(unbfline,line);
 // If the line already has bold-face removed from it, copy it verbatim

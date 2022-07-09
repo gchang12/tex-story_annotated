@@ -25,18 +25,18 @@ void boldifyFile(char *filename){
         }
 // Otherwise, create the line
         else {
-// bfline: {\bf 
             strcpy(bfline,"{\\bf ");
+// bfline: {\bf 
             comment=strchr(line,':');
             header_len=comment-line;
             header=malloc(header_len);
             strncpy(header,line,header_len);
-// bfline: {\bf (header)
             strcat(bfline,header);
+// bfline: {\bf (header)
             free(header);
-            strcat(bfline,":}");
-// bfline: {\bf (header):}
-            strcat(bfline,comment+1);
+            strcat(bfline,":");
+// bfline: {\bf (header):
+            strcat(bfline,comment);
 // bfline: {\bf (header):} (comment)
         }
         strcpy(my_lines[lineno++],bfline);
