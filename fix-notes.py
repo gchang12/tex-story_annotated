@@ -1,7 +1,7 @@
 import re
 from os import walk, sep
 
-folder='annotations'
+folder='annotations-tex'
 
 def add_bf(line):
     # If line already has \bf applied, skip
