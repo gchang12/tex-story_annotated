@@ -21,7 +21,6 @@ int boldifyFile(char *filename){
         if (line[0] == '{')
             strcpy(bfline,line);
         else {
-            strcpy(bfline,line);
             strcpy(bfline,"{\\bf ");
 // bfline: {\bf 
             comment=strchr(line,':');
