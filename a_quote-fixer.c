@@ -9,7 +9,7 @@
 #define ROOT "perl tex-converter.pl "
 
 int main(void){
-    char argv[3][8]={"","annotations","annotations"};
+    char argv[3][16]={"","annotations","annotations"};
     // Declare the source folder.
     DIR *src_dir=opendir(argv[1]);
     struct dirent *de;
@@ -34,8 +34,8 @@ int main(void){
             strcat(cmd,perl_args[j]);
 
 // Converting the extensions of the output files to "tex", assuming that the source files have "txt" extensions
-        cmd[strlen(cmd)-2]='e';
-        cmd[strlen(cmd)-1]='x';
+//        cmd[strlen(cmd)-2]='e';
+//        cmd[strlen(cmd)-1]='x';
         //printf("%s\n",cmd);
         system(cmd);
     }
