@@ -6,13 +6,14 @@
 #include <stdlib.h> // For allocation functions
 
 #define SRCDIR "./annotations/"
+#define LINESIZE 1024
 
 int boldifyFile(char *filename){
     FILE *fp;
-    char line[1024];
-    char bfline[1024];
+    char line[LINESIZE];
+    char bfline[LINESIZE];
     char *comment;
-    char my_lines[256][1024]={0};
+    char my_lines[256][LINESIZE]={0};
     int header_len;
     fp=fopen(filename,"r");
     int lineno=0;
