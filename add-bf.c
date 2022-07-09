@@ -19,19 +19,27 @@ void boldifyFile(char *filename){
     int lineno=0;
     while ( (fgets(line,sizeof(line),fp)) != NULL ){
 // {\bf header:} content...\n
-        if (line[0] == '{')
-            continue;
-        strcpy(bfline,"{\\bf ");
-        comment=strchr(line,':');
-        header_len=comment-line;
-        header=malloc(header_len);
-        strncpy(header,line,header_len);
-        strcat(bfline,header);
-        free(header);
-        strcat(bfline,":}");
-        strcat(bfline,comment+1);
+        if (line[0] == '{'){
+// If a bold-face command hass already been invoked, copy the line verbatim
+            strcpy(bfline,line);
+        }
+// Otherwise, create the line
+        else {
+// bfline: {\bf 
+            strcpy(bfline,"{\\bf ");
+            comment=strchr(line,':');
+            header_len=comment-line;
+            header=malloc(header_len);
+            strncpy(header,line,header_len);
+// bfline: {\bf (header)
+            strcat(bfline,header);
+            free(header);
+            strcat(bfline,":}");
+// bfline: {\bf (header):}
+            strcat(bfline,comment+1);
+// bfline: {\bf (header):} (comment)
+        }
         strcpy(my_lines[lineno++],bfline);
-        strcpy(header,"");
     }
     fclose(fp);
 

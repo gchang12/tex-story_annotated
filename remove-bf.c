@@ -20,17 +20,26 @@ void unboldifyFile(char *filename){
     fp=fopen(filename,"r");
     while ( (fgets(line,sizeof(line),fp)) != NULL ){
 // "{\bf ...:} rest\n
-        if (line[0] != '{')
-            continue;
-        comment=strchr(line,'}');
-        header_len=comment-line-5;
-        header=malloc(header_len);
-        strncpy(header,line+5,header_len);
-        strcpy(unbfline,header);
-        free(header);
-        strcat(unbfline,comment+1);
+        if (line[0] != '{') {
+            strcpy(unbfline,line);
+// If the line already has bold-face removed from it, copy it verbatim
+        }
+        else {
+// "} (comment)"
+            comment=strchr(line,'}');
+// The length of "{\bf " is five, and "}" is being skipped ("comment+1")
+// Length of header=(length of line) - (length of comment, which includes the extra "}") - (length of string that prefixes the bold-face command)
+            header_len=comment-line-5;
+            header=malloc(header_len);
+// "{\bf " is five characters, so the start of the header would be on index five
+            strncpy(header,line+5,header_len);
+            strcpy(unbfline,header);
+// (header):
+            free(header);
+            strcat(unbfline,comment+1);
+// (header): (comment)
+        }
         strcpy(my_lines[lineno++],unbfline);
-        strcpy(header,"");
     }
     fclose(fp);
 
